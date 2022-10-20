@@ -1,5 +1,9 @@
-# Entrega1-Rossi
+#Proyecto Final - Python Coderhouse
 
-Puse varios botones en la pagina de inicio para, crear y buscar los jugadores, estadios o equipos de futbol
+Nombre del proyecto: "FiguYa!"
 
-Para llegar al inicio solo hay que utilizar el comando python manage.py runserver en la terminal del visual estudio y este nos dara un link al que debemos agregarle AppCoder
+Integrantes: 
+- Bruno Rossi
+- Lautaro Tascon 
+
+El trabajo lo realizamos en conjunto, siempre trabajando los dos al mismo tiempo, comunicandonos por videollamada.
