@@ -47,8 +47,12 @@
             <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'Login' %}">Iniciar Sesión</a></li>
             {% endif %}
              {% if user.is_authenticated %}
+                        {% with primera=user.avatar_set.last %}
+                        <img src="{{primera.imagen.url}}" width= "64" height= "64" alt="">
+                        {% endwith %}
                         <p style="color:white">Hola, {{user.username}}</p>
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'Editar Usuario' %}">Editar Usuario</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'AgregarAvatar' %}">Editar Avatar</a></li>
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'Logout' %}">Cerrar sesión</a></li>
                         {% endif %}
             <a href="#protien">FiguYa! Más buscada</a>
@@ -198,8 +202,8 @@
                </div>
                <div class="col-md-6">
                   <div class="titlepage">
-                     <h2>Growyhing Your Body From Protien</h2>
-                     <a class="read_more" href="Javascript:void(0)"> Read More</a>
+                     <h2>Nuestras Redes</h2>
+                     <a class="read_more" href="Javascript:void(0)"> Click Aquí</a>
                   </div>
                </div>
             </div>

@@ -11,9 +11,9 @@ from django.contrib.auth.decorators import login_required
 
 def register(request):
 
-    if request.method == 'POST':    #cuando le haga click al botón
+    if request.method == 'POST':   
 
-        form = FormularioRegistro(request.POST)   #leer los datos   llenados en el formulario
+        form = FormularioRegistro(request.POST)   
 
         if form.is_valid():
 
@@ -24,43 +24,63 @@ def register(request):
     
     else:
 
-        form = FormularioRegistro()   #formulario de django que nos permite crear usuarios.
+        form = FormularioRegistro()   
     
     
     return render(request, "AppCoder/Registro/registro.html", {'form':form})
 
 def login_request(request):
 
-    if request.method == 'POST': #al presionar el botón "Iniciar Sesión"
+    if request.method == 'POST': 
 
-        form = AuthenticationForm(request, data = request.POST) #leer la data del formulario de inicio de sesión
+        form = AuthenticationForm(request, data = request.POST) 
 
         if form.is_valid():
             
-            usuario=form.cleaned_data.get('username')   #leer el usuario ingresado
-            contra=form.cleaned_data.get('password')    #leer la contraseña ingresada
+            usuario=form.cleaned_data.get('username')   
+            contra=form.cleaned_data.get('password')    
 
-            user=authenticate(username=usuario, password=contra)    #buscar al usuario con los datos ingresados
+            user=authenticate(username=usuario, password=contra)   
 
-            if user:    #si ha encontrado un usuario con eso datos
+            if user:    
 
-                login(request, user)   #hacemos login
+                login(request, user)   
 
-                #mostramos la página de inicio con un mensaje de bienvenida.
+                
                 return render(request, "AppCoder/inicio.html", {'mensaje':f"Bienvenido {user}"}) 
 
-        else:   #si el formulario no es valido (no encuentra usuario)
+        else:   
 
-            #mostramos la página de inicio junto a un mensaje de error.
+            
     
             return render(request, "AppCoder/inicio.html", {'mensaje':"Error. Datos incorrectos"})
 
     else:
             
-        form = AuthenticationForm() #mostrar el formulario
+        form = AuthenticationForm() 
 
     return render(request, "AppCoder/Registro/login.html", {'form':form})  
 
+@login_required
+def agregarAvatar(request):
+    if request.method == 'POST':
+
+        miFormulario = AvatarFormulario(request.POST, request.FILES)
+
+        if miFormulario.is_valid():
+
+            informacion = miFormulario.cleaned_data
+
+            avatar = Avatar (user=request.user, imagen=informacion['imagen'])
+
+            avatar.save()
+
+            return render(request,"AppCoder/inicio.html")
+    else:
+        miFormulario = AvatarFormulario()
+
+    return render(request, "AppCoder/Registro/agregarAvatar.html", {"miFormulario":miFormulario})
+    
 @login_required
 def figus(request):
 
@@ -69,154 +89,37 @@ def figus(request):
 
     return render(request, "AppCoder/VenderFigusYa/listaFigu.html",{'figuritas':figu})
 
+
 def inicio(request):
 
-    return render(request, "AppCoder/inicio.html")
+    avatares = Avatar.objects.filter(user=request.user.id)
+
+    contexto = {"url":avatares[0].imagen.url}
+
+    return render(request, "AppCoder/inicio.html", contexto)
 
 
-def formulario1(request):
-
-    if request.method=="POST":
-
-        formulario1 = FormularioEquipo(request.POST)
-
-
-        if formulario1.is_valid(): 
-
-            info = formulario1.cleaned_data
-
-            equipo = EquipoDeFutbol(nombre=info["nombre"], fechaNacimiento=info["fechaNacimiento"], pais=info["pais"], titulos=info["titulos"], mejorJugador=info["mejorJugador"]) 
-
-            equipo.save() 
-
-            return render(request, "AppCoder/inicio.html")
-
-    else:
-        formulario1=FormularioEquipo()
-
-
-    return render(request, "AppCoder/formularioEquipo.html", {"formularioEquipo":formulario1}) 
-
-def formulario2(request):
-
-    if request.method=="POST":
-        
-        formulario2 = FormularioJugador(request.POST)
-
-
-        if formulario2.is_valid(): 
-
-            info = formulario2.cleaned_data
-
-            jugador = JugadorFutbol(nombre=info["nombre"], nacionalidad=info["nacionalidad"], edad=info["edad"], posicion=info["posicion"], dorsal=info["dorsal"], piernaHabil=info["piernaHabil"])
-
-            jugador.save() 
-
-            return render(request, "AppCoder/inicio.html")
-
-    else:
-        formulario2=FormularioJugador() 
-
-
-    return render(request, "AppCoder/formularioJugador.html", {"formularioJugador":formulario2}) 
-
-
-def formulario3(request):
-
-    if request.method=="POST":
-
-        formulario3 = FormularioEstadio(request.POST)
-
-
-        if formulario3.is_valid():
-
-            info = formulario1.cleaned_data
-
-            estadio = EstadioFutbol(nombre=info["nombre"], ubicacion=info["ubicacion"], fechaInauguracion=info["fechaInauguracion"], capacidad=info["capacidad"])
-
-            estadio.save() 
-
-            return render(request, "AppCoder/inicio.html") 
-
-    else:
-        formulario3=FormularioEstadio() 
-
-    return render(request, "AppCoder/formularioEstadio.html", {"formularioEstadio":formulario3}) 
-
-
-
-def busqueda(request):
-
-    return render(request, "AppCoder/busqueda.html")
-
-def busquedaEstadio(request):
-
-    return render(request, "AppCoder/busquedaEstadio.html")
-
-def busquedaEquipo(request):
-
-    return render(request, "AppCoder/busquedaEquipo.html")
-'''
-def buscar(request):
-
-    if request.GET["nombre"]:
-
-        busqueda = request.GET["nombre"]
-        jugadores = JugadorFutbol.objects.filter(nombre__icontains=busqueda)
-
-        return render(request, "AppCoder/resultados.html", {"jugadores":jugadores, "busqueda":busqueda})
-    else:
-
-        mensaje = "No enviaste datos."   
-
-    return HttpResponse(mensaje)
-'''
-def buscarEquipo(request):
-
-    if request.GET["nombre"]:
-
-        busqueda = request.GET["nombre"]
-        equipos = EquipoDeFutbol.objects.filter(nombre__icontains=busqueda)
-
-        return render(request, "AppCoder/resultadosEquipo.html", {"equipos":equipos, "busqueda":busqueda})
-    else:
-
-        mensaje = "No enviaste datos."   
-
-    return HttpResponse(mensaje)
-
-def buscarEstadio(request):
-
-    if request.GET["nombre"]:
-
-        busqueda = request.GET["nombre"]
-        estadios = EstadioFutbol.objects.filter(nombre__icontains=busqueda)
-
-        return render(request, "AppCoder/resultadosEstadio.html", {"estadios":estadios, "busqueda":busqueda})
-    else:
-
-        mensaje = "No enviaste datos."   
-
-    return HttpResponse(mensaje)
 
 @login_required
 def editarUsuario(request):
 
-    usuario = request.user #usuario activo (el que ha iniciado sesión)
+    usuario = request.user 
 
-    if request.method == "POST":    #al presionar el botón
+    if request.method == "POST":    
 
-        miFormulario = FormularioRegistro(request.POST) #el formulario es el del usuario
+        miFormulario = FormularioRegistro(request.POST) 
 
         if miFormulario.is_valid():
 
-            informacion = miFormulario.cleaned_data     #info en modo diccionario
+            informacion = miFormulario.cleaned_data     
 
-            #actualizar la info del usuario activo
+            
             usuario.username = informacion['username']
             usuario.email = informacion['email']
             usuario.password1 = informacion['password1']
             usuario.password2 = informacion['password1']
+            usuario.bio = informacion['bio']
+            usuario.imagen = informacion['imagen']
             usuario.save()
 
             return render(request, "AppCoder/Registro/inicio.html")

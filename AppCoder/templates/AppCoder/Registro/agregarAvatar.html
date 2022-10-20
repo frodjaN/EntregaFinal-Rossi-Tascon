@@ -1,0 +1,21 @@
+{% extends "AppCoder/padre.html" %}
+
+{% block body %}
+    
+    <h1>
+        Agrege una Imagen para su avatar.
+        Recomendacion: Agregar una imagen de logo de 64x64 pixeles
+    </h1>
+    <form action="" enctype="multipart/form-data" method="POST"> {%csrf_token%}
+
+        <p>
+
+            {{miFormulario.as_table}}
+
+        <p>
+
+        <input type="submit", value="Agregar Avatar", style="color:red">
+
+    </form>
+
+{% endblock %}
