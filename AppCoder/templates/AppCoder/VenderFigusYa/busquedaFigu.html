@@ -1,0 +1,37 @@
+{% extends 'AppCoder/padre.html' %}
+
+{% block head %}
+    <title>Resultados búsqueda</title>
+{% endblock head %}
+
+{% block body %}
+    <h1>Has buscado las figuritas de: {{busqueda}}</h1>
+
+{% endblock body %}
+
+{% block description %}
+
+{% if resultados %}
+
+{% for r in resultados %}
+
+    <p>Figurita de : {{r.nombre}}</p>
+    <p>Nacionalidad: {{r.nacionalidad}}</p>
+    <p>Posicion: {{r.posicion}}</p>
+    <p>Precio: {{r.precio}}</p>
+    <p>Reseña: {{r.reseña}}</p>
+    
+    <img src="{{r.imagen.url}}" width= "180" height= "240" alt="No hay imagen.">
+
+    <p>********************************************************</p>
+
+{% endfor %}
+
+{% else %}
+
+<p>No hay figuritas de este jugador.</p>
+
+{% endif %}
+
+
+{% endblock %}

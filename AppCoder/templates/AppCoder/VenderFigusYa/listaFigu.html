@@ -1,0 +1,36 @@
+{% extends 'AppCoder/padre.html' %}
+
+
+{% block body %}
+    <h1>En esta sección puedes encontrar las FiguYa! disponibles.</h1>
+
+{% endblock body %}
+
+<a href="{% url 'Agregar FiguYa' %}">Añadir Nueva FiguYa!</a>
+
+{% block description %}
+
+{% for f in figuritas %}
+
+    <p>Nombre:{{f.nombre}}</p>
+    <p>Nacionalidad: {{f.nacionalidad}}</p>
+    <p>Posicion:{{f.posicion}}</p>
+    <p>Precio:{{f.precio}}</p>
+    <p>Reseña:{{f.reseña}}</p>
+
+
+
+    <img src="{{f.imagen.url}}" width= "180" height= "240" alt="No hay imagen.">
+    
+    <button>
+        <a href="{% url 'Editar Figu' f.nombre %}">Editar la figurita.</a>
+    </button>
+
+
+
+    <p>********************************************************</p>
+
+{% endfor %}
+
+{% endblock description %}
+
