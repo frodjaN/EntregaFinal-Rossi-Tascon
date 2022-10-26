@@ -6,7 +6,7 @@ from django.http import HttpResponse
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
-
+from django.contrib.admin.views.decorators import staff_member_required
 # Create your views here.
 
 def register(request):
@@ -200,3 +200,41 @@ def editarFigu(request, figurita_nombre):
         'posicion':figu.posicion, 'precio':figu.precio, 'reseña':figu.reseña,'imagen':figu.imagen})
 
     return render(request, "AppCoder/VenderFigusYa/editarFigurita.html",{'miFormulario':miFormulario, 'figurita':figurita_nombre})
+
+
+@staff_member_required
+def borrarFigu(request, figurita_nombre):
+
+    figuritaz = FiguYa.objects.get(nombre=figurita_nombre)
+    
+    figuritaz.delete()
+    
+    figuritas = FiguYa.objects.all()
+
+    return render(request, "AppCoder/VenderFigusYa/listaFigu.html",{'figuritas':figuritas})
+
+@login_required
+def comprarFiguYa(request):
+
+    if request.method == 'POST':
+
+        miFormulario=CompraFormulario(request.POST, request.FILES)
+
+        if miFormulario.is_valid():
+
+            informacion = miFormulario.cleaned_data
+
+            oferta = CompraFigu(oferta=informacion['oferta'],)
+
+            oferta.save()
+
+            return render(request, "AppCoder/inicio.html")
+    else:
+
+        miFormulario=CompraFormulario()
+
+    return render(request, "AppCoder/VenderFigusYa/compraFigu.html", {'form':miFormulario})
+
+def aboutUs(request):
+    
+    return render(request, "AppCoder/aboutUs.html")

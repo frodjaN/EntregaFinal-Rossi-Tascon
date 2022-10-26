@@ -21,10 +21,20 @@
 
 
     <img src="{{f.imagen.url}}" width= "180" height= "240" alt="No hay imagen.">
-    
+
     <button>
-        <a href="{% url 'Editar Figu' f.nombre %}">Editar la figurita.</a>
+        <a class="get_btn" href="{% url 'Editar Figu' f.nombre%}" role="button">Editar la FiguYa!</a>
     </button>
+
+    <button>
+        <a class="get_btn" href="{% url 'Comprar Figu' %}" role="button">Realizar Oferta</a>
+    </button>
+
+    <button>
+        <a class="get_btn" href="{% url 'Eliminar Figu' f.nombre%}" role="button">Borrar la FiguYa!</a>
+    </button>
+
+    
 
 
 

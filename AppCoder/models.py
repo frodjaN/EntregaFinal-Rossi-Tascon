@@ -39,3 +39,6 @@ class Avatar(models.Model):
     class Meta:
         verbose_name= "Avatar"
         verbose_name_plural= "Avatares"
+
+class CompraFigu(models.Model):
+    oferta = models.TextField(max_length=240)

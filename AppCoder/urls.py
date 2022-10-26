@@ -14,4 +14,7 @@ urlpatterns = [
     path('agregarFigu', views.agregarFiguYa, name='Agregar FiguYa'),
     path("editarFigurita/<figurita_nombre>", views.editarFigu, name="Editar Figu"),
     path('agregarAvatar/', views.agregarAvatar, name='AgregarAvatar'),
+    path("borrarFigu/<figurita_nombre>", borrarFigu, name="Eliminar Figu"),
+    path('comprarFigu', views.comprarFiguYa, name='Comprar Figu'),
+    path('aboutUs/', views.aboutUs, name='About Us'),
 ]

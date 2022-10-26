@@ -55,10 +55,8 @@
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'AgregarAvatar' %}">Editar Avatar</a></li>
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'Logout' %}">Cerrar sesión</a></li>
                         {% endif %}
-            <a href="#protien">FiguYa! Más buscada</a>
             <a href="#about">Sobre FiguYa!</a>
-            <a href="#testimonial">Nuevas FiguYa!</a>
-            <a href="#contact">Contact Us</a>
+            <a href="#testimonial">Nuestras Redes</a>
          </div>
       </div>
       <!-- header -->
@@ -73,9 +71,7 @@
                </li>
             </ul>
             <ul class="social_icon">
-               <li><a href="javascript:void(0)"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-               <li><a href="javascript:void(0)"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-               <li><a href="javascript:void(0)"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+               <li><a href="https://www.facebook.com/FiguYaFacebook"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
             </ul>
          </div>
          <div class="header_full_bg">
@@ -179,7 +175,7 @@
                      <p>
                         Un blog para comprar, vender e  intercambiar tus figuYa! <br>
                         Realizada por Lautaro Tascon y Bruno Rossi, dos estudiantes del curso "python" de CoderHouse.</p>
-                     <a class="read_more" href="Javascript:void(0)"> Leer Más</a>
+                     <a class="read_more" href="{% url 'About Us' %}"> Leer Más</a>
                   </div>
                </div>
                <div class="col-md-6 pad_right0">
@@ -192,7 +188,9 @@
       </div>
       <!-- end about -->
       <!-- growyhing -->
+
       <div class="growyhing">
+         <div id="testimonial" class="testimonial">
          <div class="container">
             <div class="row d_flex">
                <div class="col-md-6">
@@ -203,7 +201,8 @@
                <div class="col-md-6">
                   <div class="titlepage">
                      <h2>Nuestras Redes</h2>
-                     <a class="read_more" href="Javascript:void(0)"> Click Aquí</a>
+                     <a class="read_more" href="https://www.instagram.com/lauttascon/"> Instagram Lautaro</a>
+                     <a class="read_more" href="https://www.instagram.com/rrossilauta/"> Instagram Bruno</a>
                   </div>
                </div>
             </div>

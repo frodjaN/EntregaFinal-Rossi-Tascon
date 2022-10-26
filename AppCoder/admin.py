@@ -5,3 +5,4 @@ from .models import *
 
 admin.site.register(FiguYa)
 admin.site.register(Avatar)
+admin.site.register(CompraFigu)

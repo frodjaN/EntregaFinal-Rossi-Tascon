@@ -39,3 +39,10 @@ class AvatarFormulario(forms.ModelForm):
 
         model = Avatar
         fields = ['imagen']
+
+class CompraFormulario(forms.ModelForm):
+
+    class Meta:
+
+        model = CompraFigu
+        fields = ['oferta']
