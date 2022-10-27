@@ -1,5 +1,5 @@
 from http.client import HTTPResponse
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from AppCoder.forms import *
 from AppCoder.models import *
 from django.http import HttpResponse
@@ -81,7 +81,7 @@ def agregarAvatar(request):
 
     return render(request, "AppCoder/Registro/agregarAvatar.html", {"miFormulario":miFormulario})
     
-@login_required
+
 def figus(request):
 
     figu = FiguYa.objects.all()
@@ -92,11 +92,9 @@ def figus(request):
 
 def inicio(request):
 
-    avatares = Avatar.objects.filter(user=request.user.id)
 
-    contexto = {"url":avatares[0].imagen.url}
 
-    return render(request, "AppCoder/inicio.html", contexto)
+    return render(request, "AppCoder/inicio.html")
 
 
 
@@ -153,7 +151,7 @@ def agregarFiguYa(request):
 
     return render(request, "AppCoder/VenderFigusYa/agregarFigu.html", {'form':miFormulario})
 
-@login_required
+
 def buscar(request):
 
     if request.GET["figurita"]:
@@ -170,7 +168,7 @@ def buscar(request):
 
     return HttpResponse(respuesta)
 
-@login_required
+@staff_member_required
 def editarFigu(request, figurita_nombre):
 
     figu = FiguYa.objects.get(nombre=figurita_nombre)
@@ -212,6 +210,7 @@ def borrarFigu(request, figurita_nombre):
     figuritas = FiguYa.objects.all()
 
     return render(request, "AppCoder/VenderFigusYa/listaFigu.html",{'figuritas':figuritas})
+
 
 @login_required
 def comprarFiguYa(request):
