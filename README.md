@@ -20,3 +20,13 @@ SuperUser (para poder acceder a todas las funciones)
 
     usuario: ProfesorCoder
     clave: profesor123
+
+Urls del proyecto:
+
+http://127.0.0.1:8000/AppCoder/ (Inicio)
+http://127.0.0.1:8000/AppCoder/figuYa (Listado de figuritas)
+
+Urls de los videos:
+
+https://youtu.be/hEnRQ5uiGNI
+https://youtu.be/iyfBkV0MFAg
